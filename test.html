@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Webpage Builder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body { font-family: Arial; margin: 0; }
+
+.container {
+    display: flex;
+}
+
+.toolbox {
+    width: 20%;
+    background: #eee;
+    padding: 10px;
+}
+
+.toolbox div {
+    background: #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+#canvas {
+    width: 60%;
+    min-height: 400px;
+    border: 2px dashed black;
+    padding: 10px;
+}
+
+.style-panel {
+    width: 20%;
+    background: #f4f4f4;
+    padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h2 style="text-align:center;">Basic Webpage Builder</h2>
+
+<div class="container">
+
+<div class="toolbox">
+<h3>Blocks</h3>
+<div onclick="addText()">Add Text</div>
+<div onclick="addImage()">Add Image</div>
+<div onclick="addButton()">Add Button</div>
+</div>
+
+<div id="canvas">
+Drop Area
+</div>
+
+<div class="style-panel">
+<h3>Style</h3>
+<input type="color" id="colorPicker" onchange="changeColor()"><br><br>
+<input type="number" id="fontSize" value="16" onchange="changeSize()">
+</div>
+
+</div>
+
+<script>
+let selected = null;
+
+function addText(){
+    let div = document.createElement("div");
+    div.innerHTML = "Sample Text";
+    div.onclick = function(){ selected = this; };
+    document.getElementById("canvas").appendChild(div);
+}
+
+function addImage(){
+    let img = document.createElement("img");
+    img.src = "https://via.placeholder.com/150";
+    img.style.width = "150px";
+    img.onclick = function(){ selected = this; };
+    document.getElementById("canvas").appendChild(img);
+}
+
+function addButton(){
+    let btn = document.createElement("button");
+    btn.innerHTML = "Click Me";
+    btn.onclick = function(){ selected = this; };
+    document.getElementById("canvas").appendChild(btn);
+}
+
+function changeColor(){
+    if(selected){
+        selected.style.color = document.getElementById("colorPicker").value;
+    }
+}
+
+function changeSize(){
+    if(selected){
+        selected.style.fontSize = document.getElementById("fontSize").value + "px";
+    }
+}
+</script>
+
+</body>
+</html>
