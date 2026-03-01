@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - EduCart</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Montserrat + Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar with Hamburger Menu -->
+    <nav class="navbar glass">
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="logo">EduCart</a>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="cart.html" class="nav-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <a href="profile.html" class="nav-icon"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Categories</h3>
+            <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="pens.html">Pens</a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><a href="#"> Art Supplies</a></li>
+            <li><a href="#"> Bags</a></li>
+            <li><a href="#"> Exam Guides</a></li>
+            <li class="more-btn"><a href="rewards.html"></a> Rewards</a></li>
+        </ul>
+    </div>
+
+    <div class="container page-header">
+        <h1>Your Shopping Cart</h1>
+    </div>
+
+    <div class="cart-container" id="cartContainer">
+        <!-- Cart items will be loaded by JavaScript -->
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Checkout Form Section -->
+    <div class="checkout-section" id="checkoutSection" style="display: none;">
+        <div class="container">
+            <div class="checkout-form-container">
+                <h2>Shipping Information</h2>
+                <form id="checkoutForm">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Street Address *</label>
+                        <textarea id="address" rows="2" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode">Pincode *</label>
+                            <input type="text" id="pincode" required pattern="[0-9]{6}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" required pattern="[0-9]{10}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method *</label>
+                        <select id="paymentMethod" required>
+                            <option value="cod">Cash on Delivery</option>
+                            <option value="card">Credit/Debit Card</option>
+                        </select>
+                    </div>
+                    
+                    <div class="order-summary-preview" id="orderSummaryPreview"></div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Place Order</button>
+                    <button type="button" class="btn btn-secondary btn-full" id="cancelCheckout">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Message -->
+    <div class="confirmation-message" id="confirmationMessage" style="display: none;">
+        <div class="container">
+            <div class="success-card">
+                <i class="fas fa-check-circle"></i>
+                <h2>Order Confirmed!</h2>
+                <p>Your order has been placed successfully.</p>
+                <p id="orderConfirmNumber"></p>
+                <a href="track.html" class="btn btn-primary">Track Order</a>
+                <a href="index.html" class="btn btn-secondary">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduCart</h3>
+                <p>Your trusted student store since 2020</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="track.html">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: educart@example.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EduCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentCart = [];
+        
+        function renderCart() {
+            const cartContainer = document.getElementById('cartContainer');
+            currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            if (currentCart.length === 0) {
+                cartContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart empty-cart-icon"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some items to get started!</p>
+                        <a href="index.html" class="btn btn-primary">Continue Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            let total = 0;
+            let itemsHtml = '';
+            
+            for (let i = 0; i < currentCart.length; i++) {
+                const item = currentCart[i];
+                const itemTotal = item.price * (item.quantity || 1);
+                total += itemTotal;
+                
+                itemsHtml += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h3>${item.name}</h3>
+                            <p class="item-quantity">Quantity: ${item.quantity || 1}</p>
+                        </div>
+                        <div class="cart-item-price">₹${itemTotal}</div>
+                        <button class="remove-btn" onclick="removeFromCart(${i})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            }
+            
+            cartContainer.innerHTML = `
+                <div class="cart-items">${itemsHtml}</div>
+                <div class="cart-total">
+                    <h3>Total: ₹${total}</h3>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn-primary" id="proceedToCheckoutBtn">Proceed to Checkout</button>
+                </div>
+            `;
+            
+            document.getElementById('proceedToCheckoutBtn').addEventListener('click', function() {
+                document.getElementById('cartContainer').style.display = 'none';
+                document.getElementById('checkoutSection').style.display = 'block';
+                
+                // Show order summary preview
+                let summaryHtml = '<h3>Order Summary</h3>';
+                let summaryTotal = 0;
+                for (let i = 0; i < currentCart.length; i++) {
+                    const item = currentCart[i];
+                    const itemTotal = item.price * (item.quantity || 1);
+                    summaryTotal += itemTotal;
+                    summaryHtml += `
+                        <div class="summary-item">
+                            <span>${item.name} (${item.quantity || 1})</span>
+                            <span>₹${itemTotal}</span>
+                        </div>
+                    `;
+                }
+                summaryHtml += `<div class="summary-total"><strong>Total: ₹${summaryTotal}</strong></div>`;
+                document.getElementById('orderSummaryPreview').innerHTML = summaryHtml;
+            });
+        }
+        
+        document.getElementById('cancelCheckout')?.addEventListener('click', function() {
+            document.getElementById('cartContainer').style.display = 'block';
+            document.getElementById('checkoutSection').style.display = 'none';
+        });
+        
+        document.getElementById('checkoutForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const orderData = {
+                id: 'ORD' + Math.floor(Math.random() * 10000),
+                items: currentCart,
+                total: currentCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0),
+                customer: {
+                    fullName: document.getElementById('fullName').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    pincode: document.getElementById('pincode').value,
+                    phone: document.getElementById('phone').value,
+                    paymentMethod: document.getElementById('paymentMethod').value
+                },
+                date: new Date().toISOString()
+            };
+            
+            // Save order
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(orderData);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Clear cart
+            localStorage.setItem('cart', '[]');
+            
+            // Show confirmation
+            document.getElementById('checkoutSection').style.display = 'none';
+            document.getElementById('confirmationMessage').style.display = 'block';
+            document.getElementById('orderConfirmNumber').innerHTML = `Order #: ${orderData.id}`;
+            
+            updateCartBadge();
+        });
+        
+        window.removeFromCart = function(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+            updateCartBadge();
+        };
+        
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            const badges = document.querySelectorAll('.cart-badge');
+            badges.forEach(badge => {
+                badge.textContent = totalItems;
+            });
+        }
+        
+        // Initialize sidebar
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const closeBtn = document.getElementById('closeSidebar');
+            
+            if (menuToggle && sidebar && overlay) {
+                menuToggle.addEventListener('click', function() {
+                    sidebar.classList.add('open');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                function closeSidebar() {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeSidebar);
+                }
+                
+                overlay.addEventListener('click', closeSidebar);
+            }
+            
+            renderCart();
+            updateCartBadge();
+        });
+    </script>
+</body>
+</html>

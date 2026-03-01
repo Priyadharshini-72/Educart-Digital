@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books - EduCart</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Montserrat + Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar with Hamburger Menu -->
+    <nav class="navbar glass">
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i> <!-- Three lines hamburger icon -->
+            </button>
+            <a href="index.html" class="logo">EduCart</a>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Search books...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="cart.html" class="nav-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <a href="profile.html" class="nav-icon"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Categories</h3>
+            <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="pens.html"> Pens</a></li>
+            <li><a href="books.html"> Books</a></li>
+            <li><a href="#">Art Supplies</a></li>
+            <li><a href="#"> Bags</a></li>
+            <li><a href="#"> Exam Guides</a></li>
+            <li class="more-btn"><a href="rewards.html">More (Rewards)</a></li>
+        </ul>
+    </div>
+
+    <div class="container page-header">
+        <h1>Reading Books Collection</h1>
+        <p>Discover our curated collection of books for students & kids</p>
+    </div>
+
+    <!-- Product Grid - All Books with Working Images -->
+    <section class="product-grid container">
+        <!-- Row 1: Story Books -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400" alt="Science Encyclopedia">
+            <h3>Science Encyclopedia for Kids</h3>
+            <p class="price">₹399</p>
+            <button class="btn-add" onclick="handleAddToCart('Science Encyclopedia', 399)">Add to Cart</button>
+        </div>
+        
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400" alt="Fairy Tales">
+            <h3>Fairy Tales Collection (10 Books)</h3>
+            <p class="price">₹599</p>
+            <button class="btn-add" onclick="handleAddToCart('Fairy Tales Collection', 599)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400" alt="Math Workbook">
+            <h3>Mathematics Workbook - Grade 3</h3>
+            <p class="price">₹199</p>
+            <button class="btn-add" onclick="handleAddToCart('Mathematics Workbook Grade 3', 199)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400" alt="Adventure Stories">
+            <h3>Adventure Stories - Box Set</h3>
+            <p class="price">₹449</p>
+            <button class="btn-add" onclick="handleAddToCart('Adventure Stories Box Set', 449)">Add to Cart</button>
+        </div>
+
+        <!-- Row 2: Educational Books -->
+        <div class="product-card">
+            <img src="english grammar.jpg" alt="English Grammar">
+            <h3>English Grammar Guide</h3>
+            <p class="price">₹249</p>
+            <button class="btn-add" onclick="handleAddToCart('English Grammar Guide', 249)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400" alt="Study Guide">
+            <h3>Exam Preparation Guide - Science</h3>
+            <p class="price">₹299</p>
+            <button class="btn-add" onclick="handleAddToCart('Exam Prep Guide Science', 299)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1474932430478-367dbb6832c1?w=400" alt="Picture Books">
+            <h3>Picture Books for Toddlers (Set of 4)</h3>
+            <p class="price">₹349</p>
+            <button class="btn-add" onclick="handleAddToCart('Picture Books Set', 349)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1526243741027-444d633d7365?w=400" alt="Dictionary">
+            <h3>Children's Picture Dictionary</h3>
+            <p class="price">₹199</p>
+            <button class="btn-add" onclick="handleAddToCart("Children's Dictionary", 199)">Add to Cart</button>
+        </div>
+
+        <!-- Row 3: More Books -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400" alt="Classic Novels">
+            <h3>Classic Novels for Young Readers</h3>
+            <p class="price">₹499</p>
+            <button class="btn-add" onclick="handleAddToCart('Classic Novels Set', 499)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1523800503107-5bc3ba2a6f81?w=400" alt="Coding Book">
+            <h3>Coding for Kids - Python</h3>
+            <p class="price">₹399</p>
+            <button class="btn-add" onclick="handleAddToCart('Coding for Kids Python', 399)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400" alt="Art Book">
+            <h3>Learn to Draw - Art Book</h3>
+            <p class="price">₹179</p>
+            <button class="btn-add" onclick="handleAddToCart('Learn to Draw Art Book', 179)">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1550399105-c4db5fb85c18?w=400" alt="Moral Stories">
+            <h3>Moral Stories - Illustrated</h3>
+            <p class="price">₹249</p>
+            <button class="btn-add" onclick="handleAddToCart('Moral Stories Illustrated', 249)">Add to Cart</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduCart</h3>
+                <p>Your trusted student store since 2020</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: educart@example.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EduCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Handle add to cart with login check and redirect
+        window.handleAddToCart = function(name, price) {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Check if item exists
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity = (existingItem.quantity || 1) + 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            
+            // Show notification
+            showNotification('✅ Item added to cart!');
+            
+            // Redirect to cart page after a short delay
+            setTimeout(() => {
+                window.location.href = 'cart.html';
+            }, 500);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - EduCart</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Montserrat + Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar glass">
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="logo">EduCart</a>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="cart.html" class="nav-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <a href="profile.html" class="nav-icon"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Categories</h3>
+            <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="pens.html"><i class="fas fa-pen"></i> Pens</a></li>
+            <li><a href="books.html"><i class="fas fa-book"></i> Books</a></li>
+            <li><a href="#"><i class="fas fa-paint-brush"></i> Art Supplies</a></li>
+            <li><a href="#"><i class="fas fa-briefcase"></i> Bags</a></li>
+            <li><a href="#"><i class="fas fa-graduation-cap"></i> Exam Guides</a></li>
+            <li class="more-btn"><a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a></li>
+        </ul>
+    </div>
+
+    <div class="container" style="max-width: 900px; margin: 3rem auto; padding: 0 2rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1 style="font-size: 2.5rem; color: var(--dark-pastel); margin-bottom: 0.5rem;">Track Your Order</h1>
+            <p style="color: var(--deep-blue);">Real-time updates on your delivery status</p>
+        </div>
+
+        <!-- Main Track Card -->
+        <div style="background: white; border-radius: 2rem; padding: 2.5rem; box-shadow: var(--shadow-hover); margin-bottom: 2rem;">
+            <!-- Order Info -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.5rem; border-bottom: 2px solid var(--light-bg); margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                <h2 style="color: var(--dark-pastel); font-size: 1.8rem;" id="trackOrderNumber">Order #ORD-3847-92A</h2>
+                <p style="color: var(--deep-blue); font-size: 1.1rem;" id="orderDate">Placed on: March 1, 2026</p>
+            </div>
+
+            <!-- Order Items Summary -->
+            <div style="background: var(--light-bg); border-radius: 1rem; padding: 1.5rem; margin: 1.5rem 0; border: 2px dashed var(--soft-accent);">
+                <h4 style="color: var(--dark-pastel); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-box" style="color: var(--soft-accent);"></i> Order Items
+                </h4>
+                <div id="orderItemsList">
+                    <div style="display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid var(--soft-accent);">
+                        <span>Premium Color Pencils (48)</span>
+                        <span style="font-weight: 600;">Qty: 2</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid var(--soft-accent);">
+                        <span>Notebook Pack (3 pcs)</span>
+                        <span style="font-weight: 600;">Qty: 1</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 0.8rem 0; font-weight: 700; color: var(--dark-pastel);">
+                        <span>Total:</span>
+                        <span id="orderTotal">₹997</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tracker -->
+            <div style="margin: 2.5rem 0; position: relative;">
+                <!-- Step 1 -->
+                <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; position: relative;">
+                    <div style="width: 45px; height: 45px; background: var(--success); border: 3px solid var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; z-index: 2;">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4 style="font-size: 1.3rem; color: var(--dark-pastel); margin-bottom: 0.3rem;">Order Placed</h4>
+                        <p style="color: var(--deep-blue);" id="orderPlacedDate">March 1, 2026</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; position: relative; margin-left: 0;">
+                    <div style="width: 45px; height: 45px; background: var(--success); border: 3px solid var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; z-index: 2;">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4 style="font-size: 1.3rem; color: var(--dark-pastel); margin-bottom: 0.3rem;">Order Packed</h4>
+                        <p style="color: var(--deep-blue);" id="orderPackedDate">March 2, 2026</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; position: relative;">
+                    <div style="width: 45px; height: 45px; background: var(--success); border: 3px solid var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; z-index: 2;">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4 style="font-size: 1.3rem; color: var(--dark-pastel); margin-bottom: 0.3rem;">Shipped</h4>
+                        <p style="color: var(--deep-blue);" id="orderShippedDate">March 3, 2026</p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 - Active -->
+                <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; position: relative;">
+                    <div style="width: 45px; height: 45px; background: var(--soft-accent); border: 3px solid var(--soft-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; z-index: 2; animation: pulse 1.5s infinite;">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4 style="font-size: 1.3rem; color: var(--dark-pastel); margin-bottom: 0.3rem;">Out for Delivery</h4>
+                        <p style="color: var(--deep-blue);" id="outForDeliveryDate">Expected today</p>
+                    </div>
+                </div>
+                
+                <!-- Step 5 - Pending -->
+                <div style="display: flex; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; position: relative;">
+                    <div style="width: 45px; height: 45px; background: white; border: 3px solid var(--light-bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-blue); z-index: 2;">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div style="flex: 1;">
+                        <h4 style="font-size: 1.3rem; color: var(--dark-pastel); margin-bottom: 0.3rem;">Delivered</h4>
+                        <p style="color: var(--deep-blue);" id="deliveryEstimate">Expected March 7, 2026</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div style="background: var(--light-bg); border-radius: 1.5rem; padding: 1.5rem; margin: 2rem 0;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.8rem; font-weight: 600; color: var(--dark-pastel);">
+                    <span>Delivery Progress</span>
+                    <strong>75% Complete</strong>
+                </div>
+                <div style="height: 20px; background: rgba(255,255,255,0.5); border-radius: 40px; overflow: hidden; margin-bottom: 0.5rem; border: 2px solid white;">
+                    <div style="height: 100%; width: 75%; background: linear-gradient(90deg, var(--soft-accent), var(--dark-pastel)); border-radius: 40px;"></div>
+                </div>
+                <p style="text-align: center; font-weight: 600; color: var(--soft-accent); margin-top: 0.8rem;">Your package is out for delivery</p>
+            </div>
+
+            <!-- Delivery Address -->
+            <div style="background: var(--light-bg); border-radius: 1.5rem; padding: 1.8rem; margin: 2rem 0;">
+                <h3 style="color: var(--dark-pastel); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-map-marker-alt" style="color: var(--soft-accent);"></i> Delivery Address
+                </h3>
+                <div style="background: white; border-radius: 1rem; padding: 1.5rem; line-height: 1.8; color: var(--deep-blue); border: 2px solid white;" id="deliveryAddress">
+                    John Doe<br>
+                    123, Main Street<br>
+                    Chennai - 600001<br>
+                    Phone: 9876543210
+                </div>
+            </div>
+
+            <!-- Action Buttons - Fully Styled -->
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2.5rem; flex-wrap: wrap;">
+                <a href="order-confirmation.html" style="padding: 1rem 2.5rem; border-radius: 60px; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.8rem; background: transparent; color: var(--dark-pastel); border: 2px solid var(--soft-accent);" 
+                   onmouseover="this.style.background='var(--soft-accent)'; this.style.color='white';" 
+                   onmouseout="this.style.background='transparent'; this.style.color='var(--dark-pastel)';">
+                    <i class="fas fa-file-alt"></i> View Details
+                </a>
+                <a href="index.html" style="padding: 1rem 2.5rem; border-radius: 60px; font-weight: 600; font-size: 1rem; text-decoration: none; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.8rem; background: var(--soft-accent); color: white; border: 2px solid var(--soft-accent); box-shadow: 0 8px 20px rgba(79, 121, 168, 0.3);"
+                   onmouseover="this.style.background='var(--dark-pastel)'; this.style.transform='translateY(-3px) scale(1.02)'; this.style.boxShadow='0 12px 30px rgba(30, 58, 95, 0.4)';"
+                   onmouseout="this.style.background='var(--soft-accent)'; this.style.transform='none'; this.style.boxShadow='0 8px 20px rgba(79, 121, 168, 0.3)';">
+                    <i class="fas fa-home"></i> Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(79, 121, 168, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(79, 121, 168, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 121, 168, 0); }
+        }
+    </style>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduCart</h3>
+                <p>Your trusted student store since 2020</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="track.html">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: educart@example.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EduCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sidebar functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const closeBtn = document.getElementById('closeSidebar');
+            
+            if (menuToggle && sidebar && overlay) {
+                menuToggle.addEventListener('click', function() {
+                    sidebar.classList.add('open');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                function closeSidebar() {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeSidebar);
+                }
+                
+                overlay.addEventListener('click', closeSidebar);
+            }
+            
+            // Load order data
+            loadOrderData();
+            updateCartBadge();
+        });
+
+        function loadOrderData() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const latestOrder = orders[orders.length - 1];
+            
+            if (latestOrder) {
+                document.getElementById('trackOrderNumber').textContent = `Order #${latestOrder.id}`;
+                
+                const orderDate = new Date(latestOrder.date);
+                document.getElementById('orderDate').textContent = `Placed on: ${orderDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+                
+                // Set dates for tracking steps
+                document.getElementById('orderPlacedDate').textContent = orderDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                
+                const packedDate = new Date(orderDate);
+                packedDate.setDate(packedDate.getDate() + 1);
+                document.getElementById('orderPackedDate').textContent = packedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                
+                const shippedDate = new Date(orderDate);
+                shippedDate.setDate(shippedDate.getDate() + 2);
+                document.getElementById('orderShippedDate').textContent = shippedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                
+                const deliveryDate = new Date(orderDate);
+                deliveryDate.setDate(deliveryDate.getDate() + 6);
+                document.getElementById('deliveryEstimate').textContent = `Expected ${deliveryDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`;
+                
+                // Show order items
+                if (latestOrder.items && latestOrder.items.length > 0) {
+                    let itemsHtml = '';
+                    let total = 0;
+                    
+                    latestOrder.items.forEach(item => {
+                        const itemTotal = item.price * (item.quantity || 1);
+                        total += itemTotal;
+                        itemsHtml += `
+                            <div style="display: flex; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid var(--soft-accent);">
+                                <span>${item.name}</span>
+                                <span style="font-weight: 600;">Qty: ${item.quantity || 1}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    itemsHtml += `
+                        <div style="display: flex; justify-content: space-between; padding: 0.8rem 0; font-weight: 700; color: var(--dark-pastel);">
+                            <span>Total:</span>
+                            <span>₹${total}</span>
+                        </div>
+                    `;
+                    
+                    document.getElementById('orderItemsList').innerHTML = itemsHtml;
+                    document.getElementById('orderTotal').textContent = `₹${total}`;
+                }
+                
+                // Show delivery address
+                if (latestOrder.customer) {
+                    document.getElementById('deliveryAddress').innerHTML = `
+                        ${latestOrder.customer.fullName}<br>
+                        ${latestOrder.customer.address}<br>
+                        ${latestOrder.customer.city} - ${latestOrder.customer.pincode}<br>
+                        Phone: ${latestOrder.customer.phone}
+                    `;
+                }
+            }
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            const badges = document.querySelectorAll('.cart-badge');
+            badges.forEach(badge => {
+                badge.textContent = totalItems;
+            });
+        }
+    </script>
+</body>
+</html>

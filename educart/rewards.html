@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rewards - EduCart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar glass">
+        <div class="nav-left">
+            <a href="index.html" class="logo">EduCart</a>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Search rewards...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="cart.html" class="nav-icon"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></a>
+            <a href="profile.html" class="nav-icon"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <div class="container page-header">
+        <h1>🎁 Rewards & Offers</h1>
+        <p>Exclusive benefits for our loyal students</p>
+    </div>
+
+    <!-- Points Balance Card -->
+    <div class="container">
+        <div class="rewards-points-card">
+            <div class="points-header">
+                <i class="fas fa-gem"></i>
+                <h2>Your Reward Points</h2>
+            </div>
+            <div class="points-display">
+                <span class="points-number" id="rewardPoints">1,250</span>
+                <span class="points-label">points</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 62%;"></div>
+                </div>
+                <p class="progress-text">1,500 points needed for next reward (10% off)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offers Grid -->
+    <section class="container">
+        <h2 class="section-title">Active Offers</h2>
+        <div class="rewards-grid">
+            <div class="reward-card animated">
+                <i class="fas fa-star"></i>
+                <h3>Student Discount</h3>
+                <p>15% off on all stationery items</p>
+                <p class="offer-code">Code: STUDENT15</p>
+            </div>
+            <div class="reward-card animated">
+                <i class="fas fa-tag"></i>
+                <h3>Cashback Offer</h3>
+                <p>10% cashback on orders above ₹999</p>
+                <p class="offer-code">Auto-applied at checkout</p>
+            </div>
+            <div class="reward-card animated">
+                <i class="fas fa-gem"></i>
+                <h3>Reward Multiplier</h3>
+                <p>Earn 2x points on all art supplies</p>
+                <p class="offer-code">Valid till Mar 31</p>
+            </div>
+            <div class="reward-card animated">
+                <i class="fas fa-gift"></i>
+                <h3>Festival Special</h3>
+                <p>Free notebook on orders above ₹499</p>
+                <p class="offer-code">Use: FESTNOTE</p>
+            </div>
+            <div class="reward-card animated">
+                <i class="fas fa-truck"></i>
+                <h3>Free Shipping</h3>
+                <p>Unlimited free shipping for members</p>
+                <p class="offer-code">Premium members only</p>
+            </div>
+            <div class="reward-card animated">
+                <i class="fas fa-birthday-cake"></i>
+                <h3>Birthday Bonus</h3>
+                <p>500 bonus points on your birthday</p>
+                <p class="offer-code">Automatic credit</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Referral Section -->
+    <section class="container">
+        <div class="refer-section">
+            <h3>Refer a Friend</h3>
+            <p>Share EduCart with friends and earn 100 points for every successful referral!</p>
+            <div class="refer-actions">
+                <button class="btn btn-primary" onclick="copyReferralLink()">
+                    <i class="fas fa-link"></i> Copy Referral Link
+                </button>
+                <p class="small-text">Your referral code: EDUCART2026</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduCart</h3>
+                <p>Your trusted student store since 2020</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: educart@example.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EduCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function copyReferralLink() {
+            navigator.clipboard.writeText('https://educart.com/refer?code=EDUCART2026');
+            alert('Referral link copied to clipboard!');
+        }
+        
+        // Simulate points update based on user activity
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user) {
+            // In a real app, points would come from backend
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const points = orders.reduce((sum, order) => sum + Math.floor(order.total / 10), 250);
+            document.getElementById('rewardPoints').textContent = points.toLocaleString();
+        }
+    </script>
+</body>
+</html>

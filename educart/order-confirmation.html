@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - EduCart</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Montserrat + Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-pastel: #1e3a5f;
+            --deep-blue: #142c4a;
+            --soft-accent: #4f79a8;
+            --light-bg: #e6f0fa;
+            --glass-white: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-sm: 0 8px 32px rgba(30, 58, 95, 0.1);
+            --shadow-hover: 0 12px 40px rgba(30, 58, 95, 0.2);
+            --text-dark: #1e3a5f;
+            --text-light: #f0f7ff;
+            --success: #3ba66b;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(30, 58, 95, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.5rem;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.15);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-icon {
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-icon:hover {
+            transform: scale(1.15);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: var(--soft-accent);
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Sidebar Styles */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1001;
+            display: none;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 300px;
+            height: 100vh;
+            background: rgba(30, 58, 95, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border);
+            z-index: 1002;
+            transition: left 0.3s ease;
+            padding: 2rem 0;
+            box-shadow: 4px 0 30px rgba(0,0,0,0.2);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            color: white;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 1.5rem 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 2rem;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .sidebar-menu li a:hover {
+            background: var(--soft-accent);
+            padding-left: 2.5rem;
+        }
+
+        .sidebar-menu i {
+            width: 24px;
+        }
+
+        /* Confirmation Page Styles */
+        .confirmation-container {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .confirmation-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .confirmation-header h1 {
+            font-size: 2.8rem;
+            color: var(--dark-pastel);
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .confirmation-header p {
+            font-size: 1.2rem;
+            color: var(--deep-blue);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Confirmation Card */
+        .confirmation-card {
+            background: white;
+            border-radius: 2.5rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-hover);
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Success Animation */
+        .success-animation {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .success-animation i {
+            font-size: 6rem;
+            color: var(--success);
+            animation: scaleCheck 0.5s ease, float 3s ease-in-out infinite;
+        }
+
+        @keyframes scaleCheck {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .success-animation h2 {
+            font-size: 2.5rem;
+            color: var(--success);
+            margin-top: 1rem;
+        }
+
+        .success-message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--deep-blue);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px dashed var(--light-bg);
+        }
+
+        /* Order Info Section */
+        .order-info-section {
+            background: linear-gradient(135deg, var(--light-bg), white);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 2px solid white;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--dark-pastel);
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
+        }
+
+        .section-title i {
+            color: var(--soft-accent);
+            font-size: 1.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: var(--deep-blue);
+            opacity: 0.8;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-pastel);
+        }
+
+        .info-value i {
+            color: var(--soft-accent);
+            margin-right: 0.3rem;
+        }
+
+        /* Order Items Section */
+        .order-items-section {
+            background: linear-gradient(135deg, var(--light-bg), white);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 2px solid white;
+        }
+
+        .items-list {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px dashed var(--soft-accent);
+        }
+
+        .item-row:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: var(--text-dark);
+            flex: 2;
+        }
+
+        .item-quantity {
+            background: var(--soft-accent);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0 1rem;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: var(--dark-pastel);
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0 0;
+            margin-top: 1rem;
+            border-top: 2px solid var(--soft-accent);
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--dark-pastel);
+        }
+
+        /* Delivery Info Section */
+        .delivery-section {
+            background: linear-gradient(135deg, var(--light-bg), white);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border: 2px solid white;
+        }
+
+        .address-box {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            line-height: 1.8;
+            color: var(--deep-blue);
+            border: 2px solid var(--light-bg);
+        }
+
+        .address-box i {
+            color: var(--soft-accent);
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            border: 2px solid transparent;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--dark-pastel);
+            border: 2px solid var(--soft-accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--soft-accent);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-primary {
+            background: var(--soft-accent);
+            color: white;
+            box-shadow: 0 8px 20px rgba(79, 121, 168, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-pastel);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(30, 58, 95, 0.4);
+        }
+
+        .btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Email Notice */
+        .email-notice {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-radius: 50px;
+            color: var(--deep-blue);
+            font-size: 0.95rem;
+        }
+
+        .email-notice i {
+            color: var(--soft-accent);
+            margin-right: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--deep-blue);
+            color: white;
+            margin-top: 4rem;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--light-bg);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .item-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .item-quantity {
+                margin: 0.5rem 0;
+            }
+            
+            .item-price {
+                text-align: left;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .confirmation-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="logo">EduCart</a>
+        </div>
+        <div class="nav-right">
+            <a href="cart.html" class="nav-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <a href="profile.html" class="nav-icon"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Categories</h3>
+            <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="pens.html"><i class="fas fa-pen"></i> Pens</a></li>
+            <li><a href="books.html"><i class="fas fa-book"></i> Books</a></li>
+            <li><a href="#"><i class="fas fa-paint-brush"></i> Art Supplies</a></li>
+            <li><a href="#"><i class="fas fa-briefcase"></i> Bags</a></li>
+            <li><a href="#"><i class="fas fa-graduation-cap"></i> Exam Guides</a></li>
+            <li><a href="rewards.html"><i class="fas fa-gift"></i> Rewards</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Confirmation Content -->
+    <div class="confirmation-container">
+        <div class="confirmation-header">
+            <h1>Order Confirmed! 🎉</h1>
+            <p>Thank you for shopping with EduCart</p>
+        </div>
+
+        <!-- Main Confirmation Card -->
+        <div class="confirmation-card">
+            <!-- Success Animation -->
+            <div class="success-animation">
+                <i class="fas fa-check-circle"></i>
+                <h2>Order Placed Successfully!</h2>
+            </div>
+
+            <div class="success-message">
+                <i class="fas fa-envelope"></i> A confirmation email has been sent to your registered email address
+            </div>
+
+            <!-- Order Information -->
+            <div class="order-info-section">
+                <div class="section-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Order Information</h3>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Order Number</span>
+                        <span class="info-value" id="orderNumber">ORD-3847-92A</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Order Date</span>
+                        <span class="info-value" id="orderDate">March 1, 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Payment Status</span>
+                        <span class="info-value"><i class="fas fa-check-circle" style="color: var(--success);"></i> Paid</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Delivery Status</span>
+                        <span class="info-value"><span class="status-badge">Processing</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Items -->
+            <div class="order-items-section">
+                <div class="section-title">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Order Summary</h3>
+                </div>
+                <div class="items-list" id="orderItemsList">
+                    <!-- Items will be loaded here -->
+                    <div class="item-row">
+                        <span class="item-name">Premium Color Pencils (48)</span>
+                        <span class="item-quantity">Qty: 2</span>
+                        <span class="item-price">₹698</span>
+                    </div>
+                    <div class="item-row">
+                        <span class="item-name">Notebook Pack (3 pcs)</span>
+                        <span class="item-quantity">Qty: 1</span>
+                        <span class="item-price">₹299</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Total Amount:</span>
+                        <span id="orderTotal">₹997</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery Information -->
+            <div class="delivery-section">
+                <div class="section-title">
+                    <i class="fas fa-truck"></i>
+                    <h3>Delivery Information</h3>
+                </div>
+                <div class="info-grid" style="margin-bottom: 1rem;">
+                    <div class="info-item">
+                        <span class="info-label">Estimated Delivery</span>
+                        <span class="info-value" id="deliveryDate">March 7, 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Shipping Method</span>
+                        <span class="info-value">Standard Shipping</span>
+                    </div>
+                </div>
+                <div class="address-box" id="deliveryAddress">
+                    <i class="fas fa-user"></i> John Doe<br>
+                    <i class="fas fa-road"></i> 123, Main Street<br>
+                    <i class="fas fa-city"></i> Chennai - 600001<br>
+                    <i class="fas fa-phone"></i> Phone: 9876543210
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="track.html" class="btn btn-primary">
+                    <i class="fas fa-map-marker-alt"></i> Track Order
+                </a>
+                <a href="index.html" class="btn btn-outline">
+                    <i class="fas fa-home"></i> Continue Shopping
+                </a>
+            </div>
+
+            <div class="email-notice">
+                <i class="fas fa-info-circle"></i> 
+                You will receive SMS updates on your delivery status
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduCart</h3>
+                <p>Your trusted student store since 2020</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="track.html">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: educart@example.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EduCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sidebar functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const closeBtn = document.getElementById('closeSidebar');
+            
+            if (menuToggle && sidebar && overlay) {
+                menuToggle.addEventListener('click', function() {
+                    sidebar.classList.add('open');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                function closeSidebarFunc() {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeSidebarFunc);
+                }
+                
+                overlay.addEventListener('click', closeSidebarFunc);
+            }
+            
+            // Load order data
+            loadOrderData();
+            updateCartBadge();
+        });
+
+        function loadOrderData() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const latestOrder = orders[orders.length - 1];
+            
+            if (latestOrder) {
+                document.getElementById('orderNumber').textContent = latestOrder.id;
+                
+                const orderDate = new Date(latestOrder.date);
+                const dateStr = orderDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                document.getElementById('orderDate').textContent = dateStr;
+                
+                // Calculate delivery date (6 days from order)
+                const deliveryDate = new Date(orderDate);
+                deliveryDate.setDate(deliveryDate.getDate() + 6);
+                document.getElementById('deliveryDate').textContent = deliveryDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                
+                // Show order items
+                if (latestOrder.items && latestOrder.items.length > 0) {
+                    let itemsHtml = '';
+                    let total = 0;
+                    
+                    latestOrder.items.forEach(item => {
+                        const itemTotal = item.price * (item.quantity || 1);
+                        total += itemTotal;
+                        itemsHtml += `
+                            <div class="item-row">
+                                <span class="item-name">${item.name}</span>
+                                <span class="item-quantity">Qty: ${item.quantity || 1}</span>
+                                <span class="item-price">₹${itemTotal}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    itemsHtml += `
+                        <div class="total-row">
+                            <span>Total Amount:</span>
+                            <span>₹${total}</span>
+                        </div>
+                    `;
+                    
+                    document.getElementById('orderItemsList').innerHTML = itemsHtml;
+                    document.getElementById('orderTotal').textContent = `₹${total}`;
+                }
+                
+                // Show delivery address
+                if (latestOrder.customer) {
+                    document.getElementById('deliveryAddress').innerHTML = `
+                        <i class="fas fa-user"></i> ${latestOrder.customer.fullName}<br>
+                        <i class="fas fa-road"></i> ${latestOrder.customer.address}<br>
+                        <i class="fas fa-city"></i> ${latestOrder.customer.city} - ${latestOrder.customer.pincode}<br>
+                        <i class="fas fa-phone"></i> Phone: ${latestOrder.customer.phone}
+                    `;
+                }
+            }
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            const badges = document.querySelectorAll('.cart-badge');
+            badges.forEach(badge => {
+                badge.textContent = totalItems;
+            });
+        }
+    </script>
+</body>
+</html>

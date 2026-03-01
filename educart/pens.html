@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pens - EduCart</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Montserrat + Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar with Hamburger Menu -->
+    <nav class="navbar glass">
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i> <!-- Three lines hamburger icon -->
+            </button>
+            <a href="index.html" class="logo">EduCart</a>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Search pens...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="cart.html" class="nav-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <a href="profile.html" class="nav-icon"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Categories</h3>
+            <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="pens.html">Pens</a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><a href="#"> Art Supplies</a></li>
+            <li><a href="#"> Bags</a></li>
+            <li><a href="#">Exam Guides</a></li>
+            <li class="more-btn"><a href="rewards.html"> More (Rewards)</a></li>
+        </ul>
+    </div>
+
+    <div class="container page-header">
+        <!-- Back to Home Button -->
+        <h1>Premium Writing Instruments</h1>
+        <p>Discover our collection of fine pens for every writing style</p>
+    </div>
+
+    <!-- Product Grid -->
+    <section class="product-grid container">
+        <!-- Pen 1 -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=400" alt="Classic Ballpoint Pen">
+            <h3>Classic Ballpoint Pen</h3>
+            <p class="price">₹49</p>
+            <button class="btn-add" onclick="handleAddToCart('Classic Ballpoint Pen', 49)">Add to Cart</button>
+        </div>
+        <!-- Pen 2 -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=400" alt="Gel Pen Set">
+            <h3>Gel Pen Set (10 pcs)</h3>
+            <p class="price">₹199</p>
+            <button class="btn-add" onclick="handleAddToCart('Gel Pen Set', 199)">Add to Cart</button>
+        </div>
+        <!-- Pen 3 -->
+        <div class="product-card">
+            <img src="fountain pen.jpg" alt="Fountain Pen">
+            <h3>Fountain Pen</h3>
+            <p class="price">₹299</p>
+            <button class="btn-add" onclick="handleAddToCart('Fountain Pen', 299)">Add to Cart</button>
+        </div>
+        <!-- Pen 4 -->
+        <div class="product-card">
+            <img src="caligraphy pen.jpg" alt="Calligraphy Pens">
+            <h3>Calligraphy Pen Set</h3>
+            <p class="price">₹349</p>
+            <button class="btn-add" onclick="handleAddToCart('Calligraphy Pen Set', 349)">Add to Cart</button>
+        </div>
+        <!-- Pen 5 -->
+        <div class="product-card">
+            <img src="multicolor image.jpg" alt="Multicolor Pens">
+            <h3>Multicolor Ballpoint Pack</h3>
+            <p class="price">₹249</p>
+            <button class="btn-add" onclick="handleAddToCart('Multicolor Ballpoint Pack', 249)">Add to Cart</button>
+        </div>
+        <!-- Pen 6 -->
+        <div class="product-card">
+            <img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=400&sat=-50" alt="Pastel Pens">
+            <h3>Pastel Highlighters (5 colors)</h3>
+            <p class="price">₹149</p>
+            <button class="btn-add" onclick="handleAddToCart('Pastel Highlighters', 149)">Add to Cart</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduCart</h3>
+                <p>Your trusted student store since 2020</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: educart@example.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EduCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        window.handleAddToCart = function(name, price) {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity = (existingItem.quantity || 1) + 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            window.location.href = 'cart.html';
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - EduCart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar glass">
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <a href="index.html" class="logo">EduCart</a>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="cart.html" class="nav-icon"><i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge">0</span></a>
+        </div>
+    </nav>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Categories</h3>
+            <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="pens.html"> Pens</a></li>
+            <li><a href="books.html"> Books</a></li>
+            <li><a href="#"> Art Supplies</a></li>
+            <li><a href="#">Bags</a></li>
+            <li><a href="#">Exam Guides</a></li>
+            <li class="more-btn"><a href="rewards.html"></a> More (Rewards)</a></li>
+        </ul>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <i class="fas fa-user-circle"></i>
+                <h2>My Profile</h2>
+            </div>
+            
+            <div class="profile-info" id="profileInfo">
+                <!-- Loaded by JavaScript -->
+            </div>
+            
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Total Orders</span>
+                    <span class="stat-value" id="totalOrders">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Reward Points</span>
+                    <span class="stat-value" id="totalPoints">1,250</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Member Since</span>
+                    <span class="stat-value" id="memberSince">2026</span>
+                </div>
+            </div>
+            
+            <h3 style="margin: 2rem 0 1rem;">Order History</h3>
+            <div class="order-history" id="orderHistory">
+                <!-- Loaded by JavaScript -->
+            </div>
+            
+            <div class="profile-actions">
+                <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+                <button class="btn btn-primary" id="exportBtn">Export My Data</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduCart</h3>
+                <p>Your trusted student store since 2020</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: educart@example.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EduCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Load profile data
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) {
+            window.location.href = 'login.html';
+        }
+        
+        document.getElementById('profileInfo').innerHTML = `
+            <div class="info-row">
+                <strong>Username:</strong> <span>${user.username}</span>
+            </div>
+            <div class="info-row">
+                <strong>Email:</strong> <span>${user.email}</span>
+            </div>
+        `;
+        
+        // Load order history
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        document.getElementById('totalOrders').textContent = orders.length;
+        
+        if (orders.length === 0) {
+            document.getElementById('orderHistory').innerHTML = '<p class="no-orders">No orders yet. Start shopping!</p>';
+        } else {
+            let ordersHtml = '';
+            orders.forEach((order, index) => {
+                ordersHtml += `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <span class="order-id">Order #${order.id || 'ORD' + (index + 1000)}</span>
+                            <span class="order-date">${new Date(order.date).toLocaleDateString()}</span>
+                        </div>
+                        <div class="order-details">
+                            <span>Total: ₹${order.total}</span>
+                            <span>Status: Delivered</span>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('orderHistory').innerHTML = ordersHtml;
+        }
+        
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('user');
+            window.location.href = 'index.html';
+        });
+        
+        // Export user data
+        document.getElementById('exportBtn').addEventListener('click', function() {
+            const userData = {
+                profile: user,
+                orders: orders,
+                cart: JSON.parse(localStorage.getItem('cart')) || []
+            };
+            
+            const dataStr = JSON.stringify(userData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'educart-profile-data.json';
+            a.click();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduCart - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts: Montserrat + Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar with Hamburger Menu -->
+    <nav class="navbar glass">
+        <div class="nav-left">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i> <!-- Three lines hamburger icon -->
+            </button>
+            <a href="index.html" class="logo">EduCart</a>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <input type="text" placeholder="Search products...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="cart.html" class="nav-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge">0</span>
+            </a>
+            <a href="profile.html" class="nav-icon"><i class="fas fa-user"></i></a>
+        </div>
+    </nav>
+
+    <!-- Sidebar Menu (opens from left) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Categories</h3>
+            <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="pens.html"> Pens</a></li>
+            <li><a href="books.html">Books</a></li>
+            <li><a href="#"> Art Supplies</a></li>
+            <li><a href="#"> Bags</a></li>
+            <li><a href="#"> Exam Guides</a></li>
+            <li class="more-btn"><a href="rewards.html"> More (Rewards)</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="floating-text">Everything Students Need</h1>
+            <p class="floating-text-delay">Interactive Stationery & Reading Books</p>
+            <button class="btn btn-primary" id="exploreBtn">Explore Now</button>
+        </div>
+    </section>
+
+    <!-- About EduCart Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title">About EduCart</h2>
+            <div class="about-content">
+                <p>Interactive stationery, reading books for kids & students, affordable prices, and safe learning tools. Your trusted digital marketing based student store.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Preview Grid -->
+    <section class="product-preview">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="preview-grid">
+                <!-- Pen Card -->
+                <div class="preview-card">
+                    <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=400" alt="Premium Pen">
+                    <h3>Premium Pens</h3>
+                    <p class="price">₹49</p>
+                    <button class="btn-add" onclick="handleAddToCart('Premium Pens', 49)">Add to Cart</button>
+                </div>
+                <!-- Notebook Card -->
+                <div class="preview-card">
+                    <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400" alt="Notebook">
+                    <h3>Spiral Notebooks</h3>
+                    <p class="price">₹129</p>
+                    <button class="btn-add" onclick="handleAddToCart('Spiral Notebook', 129)">Add to Cart</button>
+                </div>
+                <!-- Kids Book Card -->
+                <div class="preview-card">
+                    <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400" alt="Kids Book">
+                    <h3>Kids Story Books</h3>
+                    <p class="price">₹99</p>
+                    <button class="btn-add" onclick="handleAddToCart('Kids Story Book', 99)">Add to Cart</button>
+                </div>
+                <!-- School Bag Card -->
+                <div class="preview-card">
+                    <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400" alt="School Bag">
+                    <h3>School Bags</h3>
+                    <p class="price">₹499</p>
+                    <button class="btn-add" onclick="handleAddToCart('School Bag', 499)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kids Special Section -->
+    <section class="kids-special">
+        <div class="container special-container">
+            <div class="special-image">
+                <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600" alt="Kids Studying">
+            </div>
+            <div class="special-content">
+                <h2>Safe & Creative Learning for Kids</h2>
+                <p>Explore our collection of kid-friendly stationery and books designed to make learning fun and safe.</p>
+                <button class="btn btn-secondary">Explore Collection</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>EduCart</h3>
+                <p>Your trusted student store since 2020</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: educart@example.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 EduCart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Handle add to cart with login check and redirect
+        window.handleAddToCart = function(name, price) {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Check if item exists
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity = (existingItem.quantity || 1) + 1;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            
+            // Redirect to cart page
+            window.location.href = 'cart.html';
+        };
+
+        // Explore button
+        document.getElementById('exploreBtn').addEventListener('click', function() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                window.location.href = '#featured-products';
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>
