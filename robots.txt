@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://educart-digital-u1b6.vercel.app/sitemap.xml
